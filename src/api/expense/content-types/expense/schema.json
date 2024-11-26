@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "expenses",
+  "info": {
+    "singularName": "expense",
+    "pluralName": "expenses",
+    "displayName": "Expense"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "maxLength": 3,
+      "required": true,
+      "minLength": 3
+    },
+    "participant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::participant.participant",
+      "inversedBy": "expenses"
+    }
+  }
+}
