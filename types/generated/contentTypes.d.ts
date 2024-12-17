@@ -369,88 +369,12 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiExpenseExpense extends Struct.CollectionTypeSchema {
-  collectionName: 'expenses';
+export interface ApiIncidentIncident extends Struct.CollectionTypeSchema {
+  collectionName: 'incidents';
   info: {
-    displayName: 'Expense';
-    pluralName: 'expenses';
-    singularName: 'expense';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    amount: Schema.Attribute.Float & Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    currency: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 3;
-        minLength: 3;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::expense.expense'
-    > &
-      Schema.Attribute.Private;
-    participant: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::participant.participant'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiParticipantParticipant extends Struct.CollectionTypeSchema {
-  collectionName: 'participants';
-  info: {
-    description: '';
-    displayName: 'Participant';
-    pluralName: 'participants';
-    singularName: 'participant';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    expenses: Schema.Attribute.Relation<'oneToMany', 'api::expense.expense'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::participant.participant'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    owner: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::user-extension.user-extension'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    surname1: Schema.Attribute.String & Schema.Attribute.Required;
-    surname2: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiUserExtensionUserExtension
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'user_extensions';
-  info: {
-    description: '';
-    displayName: 'UserExtension';
-    pluralName: 'user-extensions';
-    singularName: 'user-extension';
+    displayName: 'Incident';
+    pluralName: 'incidents';
+    singularName: 'incident';
   };
   options: {
     draftAndPublish: false;
@@ -459,24 +383,19 @@ export interface ApiUserExtensionUserExtension
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::user-extension.user-extension'
+      'api::incident.incident'
     > &
       Schema.Attribute.Private;
-    participants: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::participant.participant'
-    >;
     publishedAt: Schema.Attribute.DateTime;
+    solved: Schema.Attribute.Boolean;
+    solved_at: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -965,10 +884,6 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_extension: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::user-extension.user-extension'
-    >;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
@@ -988,9 +903,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::expense.expense': ApiExpenseExpense;
-      'api::participant.participant': ApiParticipantParticipant;
-      'api::user-extension.user-extension': ApiUserExtensionUserExtension;
+      'api::incident.incident': ApiIncidentIncident;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

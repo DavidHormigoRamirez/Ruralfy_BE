@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "incidents",
+  "info": {
+    "singularName": "incident",
+    "pluralName": "incidents",
+    "displayName": "Incident"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    },
+    "solved": {
+      "type": "boolean"
+    },
+    "solved_at": {
+      "type": "datetime"
+    }
+  }
+}
